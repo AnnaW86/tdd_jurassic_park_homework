@@ -55,11 +55,14 @@ function leapYear(year)
 }
 
 Park.prototype.calculateAnnualVisitors = function(year) {
-    if (leapYear(year)) {
-        return 366 * this.calculateDailyVisitors();
-    } else {
-        return 365 * this.calculateDailyVisitors();
-    }
+   let visitors = this.calculateDailyVisitors();
+   return (leapYear(year) ? 366*visitors : 365*visitors)
+   
+    // if (leapYear(year)) {
+    //     return 366 * this.calculateDailyVisitors();
+    // } else {
+    //     return 365 * this.calculateDailyVisitors();
+    // }
 }
 
 Park.prototype.calculateAnnualRevenue = function(year) {
@@ -80,11 +83,12 @@ Park.prototype.removeAllDinosaursBySpecies = function(species) {
 Park.prototype.findNumberOfDinosaursByDietType = function() {
     let dietTypeFrequencies = {};
     for (let dino of this.dinosaurs) {
-        if (dino.diet in dietTypeFrequencies){
-            dietTypeFrequencies[dino.diet] += 1;
-        } else {
-            dietTypeFrequencies[dino.diet] = 1;
-        }
+        dino.diet in dietTypeFrequencies ? dietTypeFrequencies[dino.diet] += 1: dietTypeFrequencies[dino.diet] = 1;
+        // if (dino.diet in dietTypeFrequencies){
+        //     dietTypeFrequencies[dino.diet] += 1;
+        // } else {
+        //     dietTypeFrequencies[dino.diet] = 1;
+        // }
     }
     return dietTypeFrequencies;
 }
